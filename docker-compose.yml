@@ -1,14 +1,14 @@
-version 3.8
-services
-  gameapptestauso123
-    image amalan06gameappnewimagelatest
-    build .
-    container_name gameappautotest123
-    ports
-      - 803000
-    environment
-       - PORT=3000
-    volumes
-      - .app
-    command [node, app.js]
- 
+version: '3.8'
+
+services:
+  gameapptestauso123:
+    image: amalan06gameappnewimage:latest
+    build: .
+    container_name: gameappautotest123
+    ports:
+      - "8030:3000"
+    environment:
+      - PORT=3000
+    volumes:
+      - ./app:/app
+    command: ["node", "app.js"]
