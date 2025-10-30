@@ -27,6 +27,22 @@ pipeline {
             }
         }
 
+        stage('SonarQube Analysis') {
+            agent {
+                label 'CWEB-2140-60-Appserver-Korbin'
+            }
+            steps {
+                script {
+                    def scannerHome = tool 'SonarQube-installations'
+                    withSonarQubeEnv('sonarqube') {
+                        sh "${scannerHome}/bin/sonar-scanner \
+                            -Dsonar.projectKey=gameapp \
+                            -Dsonar.sources=."
+                    }
+                }
+            }
+        }
+
         stage('BUILD-AND-TAG') {
             agent { label 'CWEB-2140-60-Appserver-Korbin' }
             steps {
@@ -75,4 +91,5 @@ pipeline {
         }
     }
 }
+
 
