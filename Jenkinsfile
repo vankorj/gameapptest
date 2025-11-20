@@ -48,7 +48,7 @@ pipeline {
         }
 
         stage('SonarQube Analysis') {
-            agent { label 'CYBR3120-01-app-server' }
+            agent any
             steps {
                 script {
                     catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
@@ -66,7 +66,7 @@ pipeline {
         }
 
         stage('BUILD-AND-TAG') {
-            agent { label 'CYBR3120-01-app-server' }
+            agent any
             steps {
                 script {
                     echo "Building Docker image ${IMAGE_NAME}..."
@@ -77,7 +77,7 @@ pipeline {
         }
 
         stage('POST-TO-DOCKERHUB') {
-            agent { label 'CYBR3120-01-app-server' }
+            agent any
             steps {
                 script {
                     echo "Pushing to DockerHub..."
@@ -162,7 +162,7 @@ pipeline {
         }
 
         stage('DEPLOYMENT') {
-            agent { label 'CYBR3120-01-app-server' }
+            agent any
             steps {
                 script {
                     echo "Deploying using docker-compose..."
